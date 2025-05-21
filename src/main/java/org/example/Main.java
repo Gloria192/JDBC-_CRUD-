@@ -17,12 +17,10 @@ class Main {
                 System.out.println("b. View Student");
                 System.out.println("c. Update Student");
                 System.out.println("d. Delete Student");
-                System.out.println("\nMenu courses:");
                 System.out.println("e. Add course");
                 System.out.println("f. View Courses");
                 System.out.println("g. Update course");
                 System.out.println("h. Delete Course");
-                System.out.println("\nMenu Marks:");
                 System.out.println("i. Add Mark [student id, course id, marks]");
                 System.out.println("j. View Student Marks [student_id]");
                 System.out.println("k. Update Mark [student id, course id, marks]");
@@ -85,57 +83,63 @@ class Main {
 
                     case "e":
                         System.out.println("Enter course name:");
-                        String name = scanner.nextLine();
+                        String updated_course_name = scanner.nextLine();
                         System.out.println("Enter description:");
-                        String desc = scanner.nextLine();
-                        Course newCourse = new Course( name, desc);
+                        String course_description = scanner.nextLine();
+                        Course newCourse = new Course(0, updated_course_name,course_description);
                         courseDAO.create(newCourse);
-                        System.out.println("Course added successfully.");
                         break;
                     case "f":
-                    List<Course> courses = courseDAO.findAll();
-                    System.out.println("Fetched courses count: " + courses.size());
+                        List<Course> courses = courseDAO.findAll(0);
+                        System.out.println("Fetched courses count: " + courses.size());
 
-                    if (courses.isEmpty()) {
-                        System.out.println("No courses available.");
-                    } else {
-                        for (Course c : courses) {
-                            System.out.println("Course ID: " + c.getName() +"  " + c.getDescription());
+                        if (courses.isEmpty()) {
+                            System.out.println("No courses available.");
+                        } else {
+                            for (Course c : courses) {
+                                System.out.println("Course ID: " + c.getName() + "  " + c.getDescription());
+                            }
                         }
-                    }
-                    break;
+                        break;
 
                     case "g":
+                        System.out.println("Enter Course ID to update:");
+                        int courseId = Integer.parseInt(scanner.nextLine()); // Ensure an ID is provided
                         System.out.println("Enter new course name:");
-                        name = scanner.nextLine();
-                        System.out.println("Enter new description:");
-                        desc = scanner.nextLine();
-                        Course updatedcourse = new Course( name, desc);
-                        courseDAO.update(updatedcourse);
-                        System.out.println("Course updated successfully.");
-                        break;
-                        case "h":
-                    System.out.println("Enter Course ID to delete:");
-                    id = Integer.parseInt(scanner.nextLine());
-                    courseDAO.delete(id);
-                    System.out.println("Student deleted successfully.");
-                    break;
-
-                    case "i":
-//                        System.out.println("Enter Course ID to update:");
-//                        int id = Integer.parseInt(scanner.nextLine());
-
-                        System.out.println("Enter course name:");
                         String course_name = scanner.nextLine();
 
-                        System.out.println("Enter course description:");
-                        String course_description = scanner.nextLine();
+                        System.out.println("Enter new description:");
+                        course_description = scanner.nextLine();
 
-                        Course updatedCourse = new Course(course_name, course_description);
+                        // Create Course object with ID for update
+                        Course updatedCourse = new Course(courseId, course_name, course_description);
+
+                        // Perform update operation
                         courseDAO.update(updatedCourse);
-
-                        System.out.println("Course updated successfully.");
                         break;
+
+                    case "h":
+                        System.out.println("Enter Course ID to delete:");
+                        id = Integer.parseInt(scanner.nextLine());
+                        courseDAO.delete(id);
+                        System.out.println("Student deleted successfully.");
+                        break;
+
+//                    case "i":
+////                        System.out.println("Enter Course ID to update:");
+////                        int id = Integer.parseInt(scanner.nextLine());
+//
+//                        System.out.println("Enter course name:");
+//                        String course_name = scanner.nextLine();
+//
+//                        System.out.println("Enter course description:");
+//                        String course_description = scanner.nextLine();
+//
+//                        Course updatedCourse = new Course(course_name, course_description);
+//                        courseDAO.update(updatedCourse);
+//
+//                        System.out.println("Course updated successfully.");
+//                        break;
 
                     case "m":
                         System.out.println("Exiting...");

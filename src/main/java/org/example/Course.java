@@ -1,14 +1,19 @@
 package org.example;
 
 public class Course {
+private int id;
     private String Name;
     private String Description;
 
-    public Course(String name, String description) {
-        Name = name;
-        Description = description;
-    }
+    public Course(int id,String name, String description) {
+        this.id = id;
+        this.Name = name;
+        this.Description = description;
 
+    }
+public int getId() {
+        return id;
+}
     public String getName() {
         return Name;
     }
@@ -16,6 +21,9 @@ public class Course {
     public String getDescription() {
         return Description;
     }
+
+
+
 
     public void setName(String name) {
         Name = name;
@@ -30,6 +38,7 @@ public class Course {
         return "Course{" +
                 "Name='" + Name + '\'' +
                 ", Description='" + Description + '\'' +
+
                 '}';
     }
 }

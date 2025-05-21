@@ -14,7 +14,7 @@ public class MarksDAO implements StudentInterface<Marks> {
     }
 
     @Override
-    public List<Marks> findAll() {
+    public List<Marks> findAll(int Id) {
         List<Marks> students = new ArrayList<>();
         String query = "SELECT * FROM students";
 

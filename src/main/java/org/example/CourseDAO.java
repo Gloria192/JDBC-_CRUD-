@@ -1,7 +1,5 @@
 package org.example;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,7 @@ public class CourseDAO implements StudentInterface<Course> {
     }
 
     @Override
-    public List<Course> findAll() {
+    public List<Course> findAll(int Id) {
         List<Course> courses = new ArrayList<>();
         String query = "SELECT * FROM courses";
 
@@ -24,9 +22,11 @@ public class CourseDAO implements StudentInterface<Course> {
 
             while (rs.next()) {
                 courses.add(new Course(
-
+                        rs.getInt("id"),
                         rs.getString("course_name"),
                         rs.getString("course_description")
+
+
                 ));
             }
 
@@ -44,8 +44,6 @@ public class CourseDAO implements StudentInterface<Course> {
         try (Connection conn = getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, course.getName());
             pst.setString(2, course.getDescription());
-
-            System.out.println("Course added successfully.");
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -64,8 +62,10 @@ public class CourseDAO implements StudentInterface<Course> {
 
             if (rs.next()) {
                 return new Course(
+                        rs.getInt("id"),
                         rs.getString("course_name"),
                         rs.getString("course_description")
+
                 );
             }
 
@@ -78,24 +78,24 @@ public class CourseDAO implements StudentInterface<Course> {
 
     @Override
     public void update(Course course) {
-        String query= "UPDATE Courses SET course_name = ?, course_description = ? WHERE id = ?";
-
+        String query = "UPDATE Courses SET course_name = ?, course_description = ? WHERE id = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement pst = conn.prepareStatement(query)) {
 
             pst.setString(1, course.getName());
             pst.setString(2, course.getDescription());
+            pst.setInt(3, course.getId());
             int rowsAffected = pst.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Course updated successfully.");
+                System.out.println(" Course updated successfully.");
             } else {
-                System.out.println("Update failed. No course found with ID: " + course.getName());
+                System.out.println(" Update failed. No course found with ID: " + course.getId());
             }
 
         } catch (SQLException e) {
-            System.out.println("Error updating course: " + e.getMessage());
+            System.out.println(" Error updating course: " + e.getMessage());
         }
     }
 

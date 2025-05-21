@@ -59,7 +59,7 @@ public class StudentsDAO implements StudentInterface<Students> {
     }
 
     @Override
-    public List<Students> findAll() {
+    public List<Students> findAll(int Id) {
         List<Students> students = new ArrayList<>();
         String query = "SELECT * FROM students";
         try (Connection conn = getConnection();
