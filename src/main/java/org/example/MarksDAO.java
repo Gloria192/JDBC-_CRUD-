@@ -24,7 +24,7 @@ public class MarksDAO implements StudentInterface<Marks> {
 
             while (rs.next()) {
                 students.add(new Marks(
-                        rs.getInt("id"),
+                        rs.getInt("Student_id"),
                         rs.getInt("Course_Id"),
                         rs.getFloat("Marks")
                 ));

@@ -141,9 +141,40 @@ class Main {
 //                        System.out.println("Course updated successfully.");
 //                        break;
 
+
+                    case"i":
+                        System.out.println("add yours marks");
+                        float marks = Float.parseFloat(scanner.nextLine());
+                        System.out.println("enter student id");
+                        int studentId = Integer.parseInt(scanner.nextLine());
+                        System.out.println("enter course id");
+                        int courseId1 = Integer.parseInt(scanner.nextLine());
+                        Marks newMarks = new Marks(studentId,courseId1,marks);
+                        System.out.println("marks added successfully"+" "+newMarks);
+                        break;
+                    case "j":
+                        MarksDAO marksDAO = new MarksDAO();
+                        List<Marks> newmarks = marksDAO.findAll(0);
+                        System.out.println("Fetched courses count: " + newmarks.size());
+
+                        if (newmarks.isEmpty()) {
+                            System.out.println("No courses available.");
+                        } else {
+                            for (Marks m : newmarks) {
+                                System.out.println("Course ID: " + m.getStudent_Id() + "  "  + "  " + m.getMarks());
+                            }
+                        }
+                    case "l":
+                        System.out.println("Enter studend ID to delete:");
+                        studentId = Integer.parseInt(scanner.nextLine());
+                        studentsDAO.delete(studentId);
+                        System.out.println("Student deleted successfully.");
+                        break;
+
                     case "m":
                         System.out.println("Exiting...");
-                        running = false;
+                        System.exit(0);
+
                         break;
 
                     default:
